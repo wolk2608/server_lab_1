@@ -1,0 +1,31 @@
+<div th:fragment="header">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-4 link-secondary">Главная</a></li>
+            <li><a href="/market" class="nav-link px-4 link-secondary">Список игр</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/cart" class="nav-link px-4 link-secondary">Корзина</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"><a href="/market/add" class="nav-link px-4 link-secondary">Добавить новую игру</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <div sec:authorize="isAnonymous()">
+                <div><form th:action="@{/login}" method="get">
+            <button type="submit" class="col-6 mx-auto btn btn-secondary me-5 mb-1">Войти</button>
+                </form></div>
+                <div><form th:action="@{/registration}" method="get">
+            <button type="submit" class="col-6 mx-auto btn btn-secondary me-5">Зарегистрироваться</button>
+                </form></div>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+            <h5 th:inline="text" class="me-5 mb-1">Hello [[${#httpServletRequest.remoteUser}]]!</h5>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="col-6 mx-auto btn btn-secondary me-5">Выйти</button>
+            </form>
+            </div>
+        </div>
+    </header>
+</div>

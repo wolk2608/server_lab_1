@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Магазин игр</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="blocks/header :: header"></div>
+<div class="container mt-5 mb-5">
+    <h1>Редактирование игры</h1>
+    <form th:action="'/market/' + ${game.getId()} + '/edit'" th:method="post">
+        <input type="text" th:value="${game.getName()}" name="name" placeholder="Введите название игры" class="form-control"><br>
+        <input type="number" step="0.01" th:value="${game.getCost()}" name="cost" placeholder="Введите стоимость игры в рублях" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+    </form>
+</div>
+</body>
+</html>

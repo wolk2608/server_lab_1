@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Магазин игр</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <form th:action="@{/login}" method="post">
+            <h1 class="h3 mb-3 fw-normal">Авторизация</h1>
+
+            <div class="form-floating">
+                <input type="text" class="form-control mb-1" name="username" id="username" placeholder="Login">
+                <label for="username">Логин</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control mb-3" name="password" id="password" placeholder="Password">
+                <label for="password">Пароль</label>
+            </div>
+            <label th:if="${param.error}">Неверное имя пользователя или пароль.</label>
+            <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Войти</button>
+        </form>
+        <form th:action="@{/registration}" method="get">
+            <button class="w-100 btn btn-lg btn-primary " type="submit">Перейти к регистрации</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

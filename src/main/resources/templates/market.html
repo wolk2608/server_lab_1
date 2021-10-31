@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Магазин игр</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="blocks/header :: header"></div>
+<div class="ms-5 me-5">
+<table class="table table-bordered table-hover table-sm">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Название игры</th>
+        <th>Стоимость</th>
+        <th sec:authorize="isAuthenticated()"></th>
+        <th sec:authorize="hasAuthority('ADMIN')"></th>
+        <th sec:authorize="hasAuthority('ADMIN')"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="game : ${games}">
+        <th scope="row" th:text="${game.getId()}"></th>
+        <td th:text="${game.getName()}"></td>
+        <td th:text="${game.getCost()}"></td>
+        <td sec:authorize="isAuthenticated()">
+            <form th:action="'/market/' + ${game.getId()}" method="get">
+                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+            </form>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <form th:action="'/market/' + ${game.getId()} + '/edit'" method="get">
+                <button type="submit" class="btn btn-warning">Редактировать</button>
+            </form>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <form th:action="'/market/' + ${game.getId()} + '/remove'" method="post">
+                <button type="submit" class="btn btn-warning">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
